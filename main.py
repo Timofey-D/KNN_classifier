@@ -66,7 +66,7 @@ def main():
 
         for arg in args:
             temp_path = os.path.join(path_to_dataset, arg)
-            print(temp_path)
+            
             if os.path.exists(temp_path) and arg == 'hhd_dataset':
                 # To get a complete path to dataset
                 path_to_dataset = os.path.join(path_to_dataset, arg)
@@ -86,10 +86,6 @@ def main():
     get_prepared_list_by_groups(path_to_dataset, _groups_)
 
     print_info_by_groups(_info_)
-
-    print(check_unique(training, validating))
-    print(check_unique(training, testing))
-    print(check_unique(validating, testing))
 
 
 if __name__ == '__main__':
