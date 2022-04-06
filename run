@@ -1,2 +1,2 @@
 clear
-python3 main.py hhd_dataset
+python3 ./src/main.py hhd_dataset
