@@ -1,0 +1,12 @@
+echo "Installation the required packages!"
+
+pip3 install numpy
+pip3 install klearn
+pip3 install mutils
+pip3 install argparse 
+pip3 install mutils
+pip3 install v2
+ 
+clear
+echo "Installation was finished successfuly!"
+echo "If you want to check workability of the program, you have to execute the "run" script!"
