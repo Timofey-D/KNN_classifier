@@ -66,14 +66,13 @@ def main():
 
         for arg in args:
             temp_path = os.path.join(path_to_dataset, arg)
-            
+
             if os.path.exists(temp_path) and arg == 'hhd_dataset':
                 # To get a complete path to dataset
                 path_to_dataset = os.path.join(path_to_dataset, arg)
 
     except:
         raise Exception("There are not any passed arguments!")
-
 
     # 3 groups
     training = []
