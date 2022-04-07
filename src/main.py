@@ -112,63 +112,52 @@ def main():
     validating = []
     testing = []
 
+    # The arrays contain sets and their options
     _groups_ = [ [training, 80], [validating, 10], [testing, 10]]
     _info_ = [ ["Training", training], ["Validating", validating], ["Testing", testing] ]
 
+    # To load dataset and to fill up 3 groups of data [training, validating, testing]
     get_prepared_list_by_groups(path_to_dataset, _groups_)
 
+    # Information by groups
     print_info_by_groups(_info_)
 
-    #for link_image in validating:
-    #    raw_image = hp.open_image(link_image)
-    #    image = hp.normalization_of_image(raw_image)
-    #    #hp.print_image(image)
-    #    knn.extract_color_histogram(image)
-    
-    (data, labels) =  load(training)
-    #(data, labels) =  load(validating)
-    #(data, labels) =  load(testing)
-    
-    #print(data, labels)
+    # To get data and label for data
+    (train, train_labels) =  load(training)
+    (validate, validate_labels) =  load(validating)
+    (test, test_labels) =  load(testing)
 
-    print( len(data), len(labels))
+    # To get a data for learning
+    train = train.reshape((train.shape[0], 1024))
+    validate = validate.reshape((validate.shape[0], 1024))
+    test = test.reshape((test.shape[0], 1024))
 
-    data = data.reshape((data.shape[0], 1024))
+    #train_le = knn.LabelEncoder()
+    #train_labels = train_le.fit_transform(train_labels)
 
-    print(data)
-
-    le = knn.LabelEncoder()
-    labels = le.fit_transform(labels)
-
-    #print(labels)
-
-    (trainX, testX, trainY, testY) = knn.train_test_split(data, labels, test_size=0.30, random_state=46)
+    # To get the collection of data for learning and testing
+    (trainX, testX, trainY, testY) = knn.train_test_split(train, train_labels, test_size=0.20, random_state=70)
     
     print("[INFO] evaluating k-NN classifier...")
 
     neighbors = [1, 3, 5, 7, 9, 11, 13, 15]
 
-    print(
-            len(trainX),
-            len(testX),
-            len(trainY),
-            len(testY)
-            )
 
     for neighbor in neighbors:
-        model = knn.KNeighborsClassifier(neighbor, n_jobs=3)
+        model = knn.KNeighborsClassifier(neighbor, n_jobs=10)
 
         print("Number of neighbors:", neighbor)
-        for i in range(50000):
-            model.fit(trainX, trainY)
+        model.fit(trainX, trainY)
+        model.predict(trainX)
 
 
+        print(model.metric)
         #(data, label) = load(testing)
         #test = knn.train_test_split(data, labels, test_size=0.27, random_state=46)
 
-        print(knn.classification_report(testY, model.predict(testX), target_names=le.classes_))
-        acc = model.score(trainY, trainX)
-        print(acc)
+        #print(knn.classification_report(testY, model.predict(testX), target_names=train_le.classes_))
+        acc = model.score(testX, testY)
+        print("Total accuracy: {}".format(acc))
 
 
 """
