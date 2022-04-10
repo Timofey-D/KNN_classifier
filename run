@@ -1,2 +1,11 @@
 clear
-python3 ./src/main.py hhd_dataset
+
+case "$OSTYPE" in
+    solaris*) echo "THere is not a command for Solaris" ;;
+    darwin*)  python3 src/main.py hhd_dataset ;;
+    linux*)   echo "There is not information for Linux" ;;
+    bsd*)     echo "There is not information for BSD" ;;
+    msys*)    python src\\main.py hhd_dataset ;;
+    cygwin*)  echo "There is not information for CYGWIN" ;;
+    *)        echo "The OS does not exist!" ;;
+esac
