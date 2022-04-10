@@ -31,7 +31,7 @@ Windows
 https://www.python.org/ftp/python/3.10.4/python-3.10.4-amd64.exe
 ```
 
-After that there is a possibility to install the aformentioned packages for successful work with command:
+After that there is a possibility to install the aforementioned packages for successful work with command:
 ```
 pip install opencv-python
 pip install sklearn
@@ -41,7 +41,7 @@ pip install numpy
 
 # Examples
 
-If you have completed previos steps succussfuly, then you can run the program.
+If you have completed previos steps succussfully, then you can run the program.
 To run the program, you have to move the home directory of the project and to find the ***run*** file. it is a shell script that allows you to run a program and to see results on terminal.
 
 The command looks like:
