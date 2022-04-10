@@ -1,6 +1,6 @@
 # KNN_classifier
 
-Introduction
+# Introduction
 
 The program was implemented 2 students from Sami Shamoon College of Engineering. The project is a part of the computer vision course. 
 
