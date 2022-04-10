@@ -1,7 +1,8 @@
+import os
 import cv2
-from matplotlib import pyplot as plt
+import numpy as np
 
-# To add paddings to passed image
+
 def __add_padding__(image):
     
     (h, w) = image.shape[:2]
@@ -18,7 +19,7 @@ def __add_padding__(image):
     return image
 
 
-def normalization_of_image(image, height=32, width=32):
+def normalization_image(image, height=32, width=32):
     # To add padding
     p_image = __add_padding__(image) 
 
@@ -37,6 +38,7 @@ def normalization_of_image(image, height=32, width=32):
 
     return r_image
 
+
 # To open an image by passed path
 def open_image(image_path):
 
@@ -49,8 +51,35 @@ def open_image(image_path):
 
     return image
 
+
 # To print out an image
 def print_image(image):
     cv2.imshow('image',image)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
+
+
+def get_normalized_data(dataset):
+    data = []
+    labels = []
+
+    # To get a data list with normalized images
+    for link_image in dataset.filenames:
+
+        # To get a raw image
+        r_image = open_image(link_image)
+
+        # To get a normalized image
+        image = normalization_image(r_image)
+
+        # To add the normalizaed image to data
+        data.append(image)
+
+        # To get a label
+        label = link_image.split(os.path.sep)[-2]
+
+        # to add a lable to labels
+        labels.append(label)
+
+    return (np.array(data), np.array(labels))
+

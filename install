@@ -1,6 +1,8 @@
+#!/bin/bash
+
 echo "Installation the required packages!"
 
-pip3 install numpy
+pip3 install pycrypto
 pip3 install klearn
 pip3 install mutils
 pip3 install argparse 
