@@ -1,14 +1,27 @@
 #!/bin/bash
+clear
 
 echo "Installation the required packages!"
 
-pip3 install pycrypto
-pip3 install klearn
-pip3 install mutils
-pip3 install argparse 
-pip3 install mutils
-pip3 install v2
- 
+NUMPY=$(python -m numpy | && grep -q 'No module named' && echo 'Not installed' || echo 'Installed')
+PANDAS=$(python -m numpy | && grep -q 'No module named' && echo 'Not installed' || echo 'Installed')
+SKLEARN=$(python -m numpy | && grep -q 'No module named' && echo 'Not installed' || echo 'Installed')
+OPENCV=$(python -m numpy | && grep -q 'No module named' && echo 'Not installed' || echo 'Installed')
+
+ANS="Not installed"
+
+if [ $NUMPY -eq ANS ]; then
+    pip3 install numpy
+elif [ $PANDAS -eq ANS ]; then
+    pip3 install pandas
+elif [ $SKLEARN -eq ANS ]; then
+    pip3 install sklearn
+elif [ $OPENCV -eq ANS ]; then
+    pip3 install openCV-python
+else
+    echo "The numpy package was already installed!"
+fi
+
 clear
 echo "Installation was finished successfuly!"
 echo "If you want to check workability of the program, you have to execute the "run" script!"
