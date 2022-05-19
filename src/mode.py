@@ -1,5 +1,4 @@
 import pandas as pd
-import random as rand
 
 from knn import KNN
 from preprocessing import Preprocessing
