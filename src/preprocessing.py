@@ -8,12 +8,15 @@ from sklearn.datasets import load_files
 class Preprocessing:
 
 
-    def __init__(self, dirdata):
+    def __init__(self, dirdata, height=32, width=32):
 
         self.path = self.__check_path__(dirdata)
         self.dataset = load_files(self.path)
-        self.raw_data = self.dataset.filenames
+
+        self.filename = self.dataset.filenames
         self.labels = np.array(self.dataset.target)
+
+        self.__normalized_data__(height, width)
 
 
     def __check_path__(self, dirdata):
@@ -29,14 +32,17 @@ class Preprocessing:
 
 
     # To split a dataset on several groups
-    def split_data(self, data, labels, size_of_test=0.2, rand_state=6, shuffling=True):
+    def split_data(self, data, labels, size_of_test=0.2, rand_state=None, shuffling=True):
         (X, Y, LX, LY) = train_test_split(data, labels, test_size=size_of_test, random_state=rand_state, shuffle=shuffling)
         return (X, Y, LX, LY)
 
 
-    def reshape_data(self, width=32, height=32, channels=1):
+    def reshape_data(self, dim,  width=32, height=32, channels=1):
         # To reshape data
-        self.data = self.data.reshape((self.data.shape[0], width, height, channels))
+        if dim == 2:
+            self.data = self.data.reshape((self.data.shape[0], width*height))
+        elif dim == 3:
+            self.data = self.data.reshape((self.data.shape[0], width, height, channels))
 
 
     def get_dataset(self):
@@ -48,7 +54,7 @@ class Preprocessing:
 
 
     def get_labels(self):
-        return np.array(self.labels)
+        return self.labels
 
 
     # To open an image by passed path
@@ -71,9 +77,8 @@ class Preprocessing:
         cv2.destroyAllWindows()
 
 
-    def print_undata(self):
-        for image in self.un_data:
-            self.print_image(image)
+    def get_norm_images(self):
+        return self.norm_images
 
 
     # To get a pad to image
@@ -115,13 +120,13 @@ class Preprocessing:
 
 
     # To get a normalized data
-    def __get_normalized_data__(self, h=32, w=32):
-        self.un_data = []
+    def __normalized_data__(self, h=32, w=32):
+        self.norm_images = []
         
-        for path in self.raw_data:
+        for path in self.filename:
             raw_image = self.open_image(path)
             image = self.__normalize_image__(raw_image, h, w)
-            self.un_data.append(image)
+            self.norm_images.append(image)
 
-        self.data = np.array(self.un_data)
+        self.data = np.array(self.norm_images)
     
